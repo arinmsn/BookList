@@ -21,7 +21,7 @@ UI.prototype.addBooktoList = function(book){
         <td>${book.author}</td>
         <td>${book.isbn}</td>
         <td><a href="#" class="delete">
-        <img src="https://img.icons8.com/color/24/000000/delete-sign.png">
+        <img class="delete" src="https://img.icons8.com/color/24/000000/delete-sign.png">
         </a></td>
     `
     list.appendChild(row);
@@ -44,6 +44,14 @@ UI.prototype.showAlert = function(message, className) {
     setTimeout(function(){
         document.querySelector('.alert').remove();
     }, 3000);
+}
+
+// Delete book
+UI.prototype.deleteBook = function(target) {
+    if(target.className === 'delete') {
+        // parentElement(td) .. then we move up ... parentElement(tr)
+        target.parentElement.parentElement.parentElement.remove();
+    }
 }
 
 // Clear Fields
@@ -81,5 +89,16 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
         ui.clearFields();
     }
 
+    e.preventDefault();
+});
+
+// Event Listener for deleting book
+document.getElementById('book-list').addEventListener('click', function(e) {
+    // Instantiate UI
+    const ui = new UI();
+    ui.deleteBook(e.target);
+
+    // Notify user the book was deleted
+    ui.showAlert('Book was removed!', 'success');
     e.preventDefault();
 });
