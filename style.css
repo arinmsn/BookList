@@ -7,8 +7,10 @@
 
 .success {
     background: green;
+    text-align: center;
 }
 
 .error {
     background: red;
+    text-align: center;
 }
